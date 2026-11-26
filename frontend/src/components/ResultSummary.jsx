@@ -21,7 +21,7 @@ const FEATURE_LABELS = {
   'Insulin': 'Insulin', 'SkinThickness': 'Skin Thickness',
   'DiabetesPedigreeFunction': 'Diabetes Pedigree', 'Pregnancies': 'Pregnancies',
   'Glucose_BMI': 'Glucose × BMI', 'Age_BMI': 'Age × BMI', 'Preg_Age': 'Pregnancies × Age',
-  'AGE': 'Age', 'PackHistory': 'Smoking History', 'FEV1': 'FEV1',
+  'PackHistory': 'Smoking History', 'FEV1': 'FEV1',
   'FVC': 'FVC', 'CAT': 'CAT Score', 'Diabetes': 'Has Diabetes', 'gender': 'Gender',
   'bp': 'Blood Pressure', 'sg': 'Specific Gravity', 'al': 'Albumin', 'su': 'Sugar',
   'bu': 'Blood Urea', 'sc': 'Serum Creatinine', 'bgr': 'Blood Glucose',
