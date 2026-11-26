@@ -238,17 +238,17 @@ function InfoTooltip({ id, openTooltip, setOpenTooltip, side = 'left' }) {
       <button
         type="button"
         onClick={(e) => { e.stopPropagation(); setOpenTooltip(isOpen ? null : id); }}
-        className="w-4 h-4 rounded-full bg-neutral-400 hover:bg-neutral-600 text-white text-[10px] font-black inline-flex items-center justify-center transition-colors"
+        className="w-4 h-4 rounded-full bg-slate-400 hover:bg-slate-600 text-white text-[10px] font-black inline-flex items-center justify-center transition-colors"
         aria-label="More info"
       >i</button>
       {isOpen && (
-        <div className={`absolute ${alignClass} top-6 z-50 w-[280px] sm:w-[320px] p-4 bg-[#ede7de] text-neutral-800 text-sm rounded-xl shadow-2xl leading-relaxed border border-neutral-300 normal-case font-normal`}>
-          <div className={`absolute -top-1.5 ${arrowClass} w-3 h-3 bg-[#ede7de] border-l border-t border-neutral-300 rotate-45`} />
+        <div className={`absolute ${alignClass} top-6 z-50 w-[280px] sm:w-[320px] p-4 bg-[#f8fafc] text-slate-800 text-sm rounded-xl shadow-2xl leading-relaxed border border-slate-300 normal-case font-normal`}>
+          <div className={`absolute -top-1.5 ${arrowClass} w-3 h-3 bg-[#f8fafc] border-l border-t border-slate-300 rotate-45`} />
           <p>{info.text}</p>
           {info.range && (
-            <div className="mt-3 pt-3 border-t border-neutral-300/50 flex items-center justify-between gap-2">
-              <span className="text-neutral-500 font-bold uppercase text-[10px] tracking-widest whitespace-nowrap">Normal Range:</span>
-              <span className="text-neutral-900 font-bold text-[13px]">{info.range}</span>
+            <div className="mt-3 pt-3 border-t border-slate-300/50 flex items-center justify-between gap-2">
+              <span className="text-slate-500 font-bold uppercase text-[10px] tracking-widest whitespace-nowrap">Normal Range:</span>
+              <span className="text-slate-900 font-bold text-[13px]">{info.range}</span>
             </div>
           )}
         </div>
@@ -344,7 +344,7 @@ export default function AssessmentForm({ selectedDisease, formData, setFormData,
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="text-[10px] font-bold text-neutral-500 bg-[#ede7de] px-2 py-0.5 rounded border border-neutral-300 shadow-sm"
+              className="text-[10px] font-bold text-slate-500 bg-[#f8fafc] px-2 py-0.5 rounded border border-slate-300 shadow-sm"
             >
               Enter manually
             </motion.span>
@@ -361,38 +361,38 @@ export default function AssessmentForm({ selectedDisease, formData, setFormData,
     return `${ic} ${
       wasScanned ? 'border-emerald-500 ring-4 ring-emerald-500/20 bg-emerald-50/20 shadow-[0_0_15px_rgba(16,185,129,0.2)]' : 
       needsManual ? 'border-rose-400 ring-4 ring-rose-400/20 shadow-[0_0_15px_rgba(244,63,94,0.15)]' : 
-      'border-neutral-300'
+      'border-slate-300'
     } transition-all duration-500`;
   };
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-6 duration-700" onClick={() => setOpenTooltip(null)}>
-      <div className="flex items-center space-x-5 pb-6 border-b border-neutral-300/50">
+      <div className="flex items-center space-x-5 pb-6 border-b border-slate-300/50">
         <div className={`p-4 rounded-lg ${disease?.bg} shadow-lg flex items-center justify-center border border-black/10`}>
           {disease?.image ? <img src={disease?.image} alt={disease?.name} className="h-16 w-16 object-contain drop-shadow-xl" /> : Icon && <Icon className={`h-12 w-12 ${disease?.color}`} />}
         </div>
         <div>
-          <h2 className="text-3xl font-black text-neutral-900 tracking-tight">{disease?.name} Analysis</h2>
-          <p className="text-sm font-medium text-neutral-600 mt-1">Provide clinical measurements below</p>
+          <h2 className="text-3xl font-black text-slate-900 tracking-tight">{disease?.name} Analysis</h2>
+          <p className="text-sm font-medium text-slate-600 mt-1">Provide clinical measurements below</p>
         </div>
       </div>
 
-      <div className="bg-neutral-100 border border-neutral-200 rounded-lg p-4 flex items-start space-x-3 shadow-sm">
-        <div className="p-2 bg-neutral-200 rounded-lg shrink-0">
-          <svg className="w-5 h-5 text-neutral-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div className="bg-slate-100 border border-slate-200 rounded-lg p-4 flex items-start space-x-3 shadow-sm">
+        <div className="p-2 bg-slate-200 rounded-lg shrink-0">
+          <svg className="w-5 h-5 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </div>
         <div>
-          <p className="text-sm font-bold text-neutral-900">Clinical Guidelines</p>
-          <p className="text-xs font-medium text-neutral-700 mt-0.5 leading-relaxed">
+          <p className="text-sm font-bold text-slate-900">Clinical Guidelines</p>
+          <p className="text-xs font-medium text-slate-700 mt-0.5 leading-relaxed">
             Please enter any information you are aware of. For a valid assessment, you must provide a minimum of <strong>3 features</strong> (including your Age). Missing fields will be estimated using clinical baselines.
           </p>
         </div>
       </div>
 
       {/* ── Smart Report Scanner ── */}
-      <div className="bg-neutral-100 border border-neutral-300 rounded-xl p-6 transition-all shadow-sm group relative overflow-hidden">
+      <div className="bg-slate-100 border border-slate-300 rounded-xl p-6 transition-all shadow-sm group relative overflow-hidden">
         <input 
           type="file" 
           ref={fileInputRef} 
@@ -406,22 +406,22 @@ export default function AssessmentForm({ selectedDisease, formData, setFormData,
             <div className="flex items-center space-x-4 mb-4">
               <div className={`p-3 rounded-lg ${
                 scanStatus === 'success' ? 'bg-[#e3eadf] text-[#3e4f3a]' : 
-                'bg-neutral-200 text-neutral-700'
+                'bg-slate-200 text-slate-700'
               } transition-colors shadow-sm`}>
                 {scanStatus === 'scanning' ? <Loader2 className="w-6 h-6 animate-spin" /> : 
                  scanStatus === 'success' ? <CheckCircle2 className="w-6 h-6" /> : 
                  <FileText className="w-6 h-6" />}
 </div>
               <div>
-                <h3 className="text-base font-bold text-neutral-900">Smart Report Scanner</h3>
-                <p className="text-xs font-medium text-neutral-600 mt-0.5">Upload a PDF or Photo to auto-fill clinical values</p>
+                <h3 className="text-base font-bold text-slate-900">Smart Report Scanner</h3>
+                <p className="text-xs font-medium text-slate-600 mt-0.5">Upload a PDF or Photo to auto-fill clinical values</p>
               </div>
             </div>
 
             {/* Recommended Tests Guide */}
-            <div className="bg-white/50 rounded-lg p-3 border border-neutral-200/60">
-              <p className="text-[10px] font-black text-neutral-500 uppercase tracking-widest mb-2 flex items-center">
-                <span className="w-1 h-1 bg-neutral-400 rounded-full mr-2"></span>
+            <div className="bg-white/50 rounded-lg p-3 border border-slate-200/60">
+              <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2 flex items-center">
+                <span className="w-1 h-1 bg-slate-400 rounded-full mr-2"></span>
                 Required {disease?.name} Reports (Any one will work)
               </p>
               <div className="flex flex-wrap gap-2">
@@ -430,7 +430,7 @@ export default function AssessmentForm({ selectedDisease, formData, setFormData,
                   disease?.id === 'lung' ? ['Spirometry / PFT', 'Chest X-ray', 'ABG Test', 'Chest CT Scan'] :
                   disease?.id === 'kidney' ? ['Serum Creatinine', 'BUN / GFR', 'Urinalysis', 'Renal Ultrasound'] : []
                 ).map((test, i) => (
-                  <span key={i} className="text-[11px] font-bold px-2 py-1 bg-white border border-neutral-200 rounded text-neutral-700 shadow-sm">
+                  <span key={i} className="text-[11px] font-bold px-2 py-1 bg-white border border-slate-200 rounded text-slate-700 shadow-sm">
                     {test}
                   </span>
                 ))}
@@ -444,9 +444,9 @@ export default function AssessmentForm({ selectedDisease, formData, setFormData,
               onClick={() => fileInputRef.current?.click()}
               disabled={isScanning}
               className={`flex items-center space-x-2 px-6 py-3 rounded-lg text-sm font-black transition-all shadow-md ${
-                isScanning ? 'bg-neutral-200 text-neutral-500 cursor-not-allowed' : 
+                isScanning ? 'bg-slate-200 text-slate-500 cursor-not-allowed' : 
                 scanStatus === 'success' ? 'bg-[#3e4f3a] text-white' : 
-                'bg-neutral-900 text-white hover:bg-neutral-800'
+                'bg-slate-900 text-white hover:bg-slate-800'
               }`}
             >
               {isScanning ? (
@@ -471,7 +471,7 @@ export default function AssessmentForm({ selectedDisease, formData, setFormData,
 
         {/* Status indicator bar for scanning */}
         {isScanning && (
-          <div className="absolute bottom-0 left-0 h-1 bg-neutral-900 animate-[shimmer_2s_infinite]" style={{ width: '100%', backgroundSize: '200% 100%' }}></div>
+          <div className="absolute bottom-0 left-0 h-1 bg-slate-900 animate-[shimmer_2s_infinite]" style={{ width: '100%', backgroundSize: '200% 100%' }}></div>
         )}
       </div>
 
@@ -558,13 +558,13 @@ export default function AssessmentForm({ selectedDisease, formData, setFormData,
             <div>
               <L id="pregnancies" req side="right">Pregnancies</L>
               <select required name="pregnancies" value={formData.pregnancies || ''} onChange={onInputChange} className={getInClass('pregnancies', true)}>
-                <option value="" className="bg-neutral-100">Select Count</option>
-                <option value="0" className="bg-neutral-100">0 (Male / Never Pregnant)</option>
-                <option value="1" className="bg-neutral-100">1</option>
-                <option value="2" className="bg-neutral-100">2</option>
-                <option value="3" className="bg-neutral-100">3</option>
-                <option value="4" className="bg-neutral-100">4</option>
-                <option value="6" className="bg-neutral-100">5+</option>
+                <option value="" className="bg-slate-100">Select Count</option>
+                <option value="0" className="bg-slate-100">0 (Male / Never Pregnant)</option>
+                <option value="1" className="bg-slate-100">1</option>
+                <option value="2" className="bg-slate-100">2</option>
+                <option value="3" className="bg-slate-100">3</option>
+                <option value="4" className="bg-slate-100">4</option>
+                <option value="6" className="bg-slate-100">5+</option>
               </select>
             </div>
           </>)}
@@ -574,19 +574,19 @@ export default function AssessmentForm({ selectedDisease, formData, setFormData,
             <div>
               <L id="sex" req side="right">Gender</L>
               <select required name="sex" value={formData.sex || ''} onChange={onInputChange} className={getInClass('sex', true)}>
-                <option value="" className="bg-neutral-100">Select</option>
-                <option value="1" className="bg-neutral-100">Male</option>
-                <option value="0" className="bg-neutral-100">Female</option>
+                <option value="" className="bg-slate-100">Select</option>
+                <option value="1" className="bg-slate-100">Male</option>
+                <option value="0" className="bg-slate-100">Female</option>
               </select>
             </div>
             <div>
               <L id="cp" side="left">Chest Pain Type</L>
               <select name="cp" value={formData.cp || ''} onChange={onInputChange} className={getInClass('cp')}>
-                <option value="" className="bg-neutral-100">Select Type</option>
-                <option value="1" className="bg-neutral-100">1: Standard Heart Pain</option>
-                <option value="2" className="bg-neutral-100">2: Unusual Heart Pain</option>
-                <option value="3" className="bg-neutral-100">3: Non-Heart Related Pain</option>
-                <option value="4" className="bg-neutral-100">4: No Pain (Asymptomatic)</option>
+                <option value="" className="bg-slate-100">Select Type</option>
+                <option value="1" className="bg-slate-100">1: Standard Heart Pain</option>
+                <option value="2" className="bg-slate-100">2: Unusual Heart Pain</option>
+                <option value="3" className="bg-slate-100">3: Non-Heart Related Pain</option>
+                <option value="4" className="bg-slate-100">4: No Pain (Asymptomatic)</option>
               </select>
             </div>
             <div>
@@ -604,26 +604,26 @@ export default function AssessmentForm({ selectedDisease, formData, setFormData,
             <div>
               <L id="fbs" side="left">Fasting Blood Sugar &gt; 120</L>
               <select name="fbs" value={formData.fbs || ''} onChange={onInputChange} className={getInClass('fbs')}>
-                <option value="" className="bg-neutral-100">Select</option>
-                <option value="1" className="bg-neutral-100">Yes</option>
-                <option value="0" className="bg-neutral-100">No</option>
+                <option value="" className="bg-slate-100">Select</option>
+                <option value="1" className="bg-slate-100">Yes</option>
+                <option value="0" className="bg-slate-100">No</option>
               </select>
             </div>
             <div>
               <L id="restecg" side="right">Resting ECG</L>
               <select name="restecg" value={formData.restecg || ''} onChange={onInputChange} className={getInClass('restecg')}>
-                <option value="" className="bg-neutral-100">Select</option>
-                <option value="0" className="bg-neutral-100">0: Normal</option>
-                <option value="1" className="bg-neutral-100">1: ST-T Abnormality</option>
-                <option value="2" className="bg-neutral-100">2: LVH</option>
+                <option value="" className="bg-slate-100">Select</option>
+                <option value="0" className="bg-slate-100">0: Normal</option>
+                <option value="1" className="bg-slate-100">1: ST-T Abnormality</option>
+                <option value="2" className="bg-slate-100">2: LVH</option>
               </select>
             </div>
             <div>
               <L id="exang" side="left">Exercise Angina</L>
               <select name="exang" value={formData.exang || ''} onChange={onInputChange} className={getInClass('exang')}>
-                <option value="" className="bg-neutral-100">Select</option>
-                <option value="1" className="bg-neutral-100">Yes</option>
-                <option value="0" className="bg-neutral-100">No</option>
+                <option value="" className="bg-slate-100">Select</option>
+                <option value="1" className="bg-slate-100">Yes</option>
+                <option value="0" className="bg-slate-100">No</option>
               </select>
             </div>
             <div>
@@ -641,9 +641,9 @@ export default function AssessmentForm({ selectedDisease, formData, setFormData,
             <div>
               <L id="smoking" side="left">Currently Smoking</L>
               <select name="smoking" value={formData.smoking || ''} onChange={onInputChange} className={getInClass('smoking')}>
-                <option value="" className="bg-neutral-100">Select</option>
-                <option value="1" className="bg-neutral-100">Yes</option>
-                <option value="0" className="bg-neutral-100">No</option>
+                <option value="" className="bg-slate-100">Select</option>
+                <option value="1" className="bg-slate-100">Yes</option>
+                <option value="0" className="bg-slate-100">No</option>
               </select>
             </div>
             <div>
@@ -661,17 +661,17 @@ export default function AssessmentForm({ selectedDisease, formData, setFormData,
             <div>
               <L id="diabetes_lung" side="left">Has Diabetes?</L>
               <select name="diabetes" value={formData.diabetes || ''} onChange={onInputChange} className={getInClass('diabetes')}>
-                <option value="" className="bg-neutral-100">Select</option>
-                <option value="1" className="bg-neutral-100">Yes</option>
-                <option value="0" className="bg-neutral-100">No</option>
+                <option value="" className="bg-slate-100">Select</option>
+                <option value="1" className="bg-slate-100">Yes</option>
+                <option value="0" className="bg-slate-100">No</option>
               </select>
             </div>
             <div>
               <L id="gender_lung" req side="right">Gender</L>
               <select required name="gender" value={formData.gender || ''} onChange={onInputChange} className={getInClass('gender', true)}>
-                <option value="" className="bg-neutral-100">Select</option>
-                <option value="1" className="bg-neutral-100">Male</option>
-                <option value="0" className="bg-neutral-100">Female</option>
+                <option value="" className="bg-slate-100">Select</option>
+                <option value="1" className="bg-slate-100">Male</option>
+                <option value="0" className="bg-slate-100">Female</option>
               </select>
             </div>
           </>)}
@@ -689,15 +689,15 @@ export default function AssessmentForm({ selectedDisease, formData, setFormData,
             <div>
               <L id="al" side="right">Albumin</L>
               <select name="al" value={formData.al || ''} onChange={onInputChange} className={getInClass('al')}>
-                <option value="" className="bg-neutral-100">Select</option>
-                {[0, 1, 2, 3, 4, 5].map(n => <option key={n} value={n} className="bg-neutral-100">{n}</option>)}
+                <option value="" className="bg-slate-100">Select</option>
+                {[0, 1, 2, 3, 4, 5].map(n => <option key={n} value={n} className="bg-slate-100">{n}</option>)}
               </select>
             </div>
             <div>
               <L id="su" side="left">Sugar</L>
               <select name="su" value={formData.su || ''} onChange={onInputChange} className={getInClass('su')}>
-                <option value="" className="bg-neutral-100">Select</option>
-                {[0, 1, 2, 3, 4, 5].map(n => <option key={n} value={n} className="bg-neutral-100">{n}</option>)}
+                <option value="" className="bg-slate-100">Select</option>
+                {[0, 1, 2, 3, 4, 5].map(n => <option key={n} value={n} className="bg-slate-100">{n}</option>)}
               </select>
             </div>
             <div>
@@ -739,57 +739,57 @@ export default function AssessmentForm({ selectedDisease, formData, setFormData,
             <div>
               <L id="pc" side="left">Pus Cells</L>
               <select name="pc" value={formData.pc || ''} onChange={onInputChange} className={getInClass('pc')}>
-                <option value="" className="bg-neutral-100">Select</option>
-                <option value="1" className="bg-neutral-100">Normal</option>
-                <option value="0" className="bg-neutral-100">Abnormal</option>
+                <option value="" className="bg-slate-100">Select</option>
+                <option value="1" className="bg-slate-100">Normal</option>
+                <option value="0" className="bg-slate-100">Abnormal</option>
               </select>
             </div>
             <div>
               <L id="htn" side="right">Hypertension</L>
               <select name="htn" value={formData.htn || ''} onChange={onInputChange} className={getInClass('htn')}>
-                <option value="" className="bg-neutral-100">Select</option>
-                <option value="1" className="bg-neutral-100">Yes</option>
-                <option value="0" className="bg-neutral-100">No</option>
+                <option value="" className="bg-slate-100">Select</option>
+                <option value="1" className="bg-slate-100">Yes</option>
+                <option value="0" className="bg-slate-100">No</option>
               </select>
             </div>
             <div>
               <L id="dm" side="left">Diabetes Mellitus</L>
               <select name="dm" value={formData.dm || ''} onChange={onInputChange} className={getInClass('dm')}>
-                <option value="" className="bg-neutral-100">Select</option>
-                <option value="1" className="bg-neutral-100">Yes</option>
-                <option value="0" className="bg-neutral-100">No</option>
+                <option value="" className="bg-slate-100">Select</option>
+                <option value="1" className="bg-slate-100">Yes</option>
+                <option value="0" className="bg-slate-100">No</option>
               </select>
             </div>
             <div>
               <L id="cad" side="right">Coronary Artery Disease</L>
               <select name="cad" value={formData.cad || ''} onChange={onInputChange} className={getInClass('cad')}>
-                <option value="" className="bg-neutral-100">Select</option>
-                <option value="1" className="bg-neutral-100">Yes</option>
-                <option value="0" className="bg-neutral-100">No</option>
+                <option value="" className="bg-slate-100">Select</option>
+                <option value="1" className="bg-slate-100">Yes</option>
+                <option value="0" className="bg-slate-100">No</option>
               </select>
             </div>
             <div>
               <L id="appet" side="left">Appetite</L>
               <select name="appet" value={formData.appet || ''} onChange={onInputChange} className={getInClass('appet')}>
-                <option value="" className="bg-neutral-100">Select</option>
-                <option value="1" className="bg-neutral-100">Good</option>
-                <option value="0" className="bg-neutral-100">Poor</option>
+                <option value="" className="bg-slate-100">Select</option>
+                <option value="1" className="bg-slate-100">Good</option>
+                <option value="0" className="bg-slate-100">Poor</option>
               </select>
             </div>
             <div>
               <L id="pe" side="right">Pedal Edema</L>
               <select name="pe" value={formData.pe || ''} onChange={onInputChange} className={getInClass('pe')}>
-                <option value="" className="bg-neutral-100">Select</option>
-                <option value="1" className="bg-neutral-100">Yes</option>
-                <option value="0" className="bg-neutral-100">No</option>
+                <option value="" className="bg-slate-100">Select</option>
+                <option value="1" className="bg-slate-100">Yes</option>
+                <option value="0" className="bg-slate-100">No</option>
               </select>
             </div>
             <div>
               <L id="ane" side="left">Anemia</L>
               <select name="ane" value={formData.ane || ''} onChange={onInputChange} className={getInClass('ane')}>
-                <option value="" className="bg-neutral-100">Select</option>
-                <option value="1" className="bg-neutral-100">Yes</option>
-                <option value="0" className="bg-neutral-100">No</option>
+                <option value="" className="bg-slate-100">Select</option>
+                <option value="1" className="bg-slate-100">Yes</option>
+                <option value="0" className="bg-slate-100">No</option>
               </select>
             </div>
           </>)}
@@ -799,9 +799,10 @@ export default function AssessmentForm({ selectedDisease, formData, setFormData,
         <div className="pt-6">
           <button
             type="submit"
-            className="w-full flex justify-center items-center py-3 px-6 rounded-lg shadow-sm text-lg font-semibold text-white bg-neutral-900 hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-neutral-900/50 transition-colors"
+            className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#0f172a] via-[#1e293b] to-[#0284c7] hover:from-[#1e293b] hover:to-[#0369a1] text-white font-black text-base shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center space-x-3 group cursor-pointer border border-slate-700"
           >
-            Process Assessment
+            <span>Run Biostatistical Triage & Marginal SHAP Analysis</span>
+            <span className="transform group-hover:translate-x-1.5 transition-transform font-bold text-cyan-300">→</span>
           </button>
         </div>
       </form>

@@ -184,7 +184,13 @@ export default function App() {
             onClick={() => { setStep('selection'); setSelectedDisease(null); setIsSidebarOpen(false); }}
             className="flex items-center space-x-3 hover:opacity-80 transition-opacity focus:outline-none"
           >
-            <span className="text-3xl font-black text-white tracking-tight">Wellcore</span>
+            <div className="flex items-center space-x-3">
+      <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-600 to-blue-500 flex items-center justify-center text-white font-black text-base shadow-lg">W</div>
+      <div>
+        <span className="text-xl font-black text-white tracking-tight leading-tight block">WELLCORE</span>
+        <span className="text-[9px] text-cyan-300 font-bold tracking-widest uppercase block">Clinical Console • SGPGIMS</span>
+      </div>
+    </div>
           </button>
           <button className="lg:hidden text-slate-600 hover:text-slate-900 transition-colors" onClick={() => setIsSidebarOpen(false)}>
             <X className="h-6 w-6" />
@@ -272,9 +278,9 @@ export default function App() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col h-screen overflow-hidden bg-slate-50">
+      <main className="flex-1 flex flex-col h-screen overflow-hidden bg-gradient-to-b from-slate-50 to-slate-100/70">
         {/* Universal Header */}
-        <header className="flex items-center justify-between p-4 border-b border-slate-200 bg-slate-50/80 backdrop-blur-md">
+        <header className="flex items-center justify-between px-6 py-3.5 border-b border-slate-200/90 bg-white/90 backdrop-blur-md shadow-2xs z-10">
           <div className="flex items-center space-x-4">
             <button
               className="p-2 rounded-md bg-neutral-100 text-slate-600 hidden lg:block hover:text-slate-900 transition-colors"
@@ -286,7 +292,13 @@ export default function App() {
               onClick={() => { setStep('selection'); setSelectedDisease(null); }}
               className={`flex items-center space-x-2 focus:outline-none ${isDesktopSidebarOpen ? 'lg:hidden' : 'lg:flex'}`}
             >
-              <span className="text-2xl font-black text-white tracking-tight">Wellcore</span>
+              <div className="flex items-center space-x-2">
+      <div className="w-8 h-8 rounded-lg bg-[#0284c7] flex items-center justify-center text-white font-black text-sm shadow-md">W</div>
+      <div>
+        <span className="text-lg font-black text-slate-900 tracking-tight leading-tight block">WELLCORE<span className="text-cyan-600 text-xs font-bold ml-1">OS</span></span>
+        <span className="text-[10px] text-slate-500 font-semibold tracking-wider uppercase block">SGPGIMS Diagnostic Workstation</span>
+      </div>
+    </div>
             </button>
           </div>
 
@@ -310,7 +322,7 @@ export default function App() {
         <div id="main-content-area" className="flex-1 overflow-y-auto p-4 md:p-8 lg:p-12">
           <div className="max-w-4xl mx-auto">
             {/* Dynamic UI Panel */}
-            <div className="bg-slate-50/80 backdrop-blur-xl shadow-2xl rounded-md border border-slate-200 overflow-hidden relative">
+            <div className="bg-white rounded-3xl shadow-xl border border-slate-200/90 overflow-hidden relative">
 
               {/* Decorative Glow */}
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-px bg-linear-to-r from-transparent via-neutral-400/50 to-transparent"></div>
