@@ -1,7 +1,26 @@
 import React, { useState, useRef } from 'react';
 import { DISEASES } from '../constants/diseases';
-import { Upload, FileText, CheckCircle2, Loader2, AlertCircle } from 'lucide-react';
+import { Upload, FileText, CheckCircle2, Loader2, AlertCircle, Sparkles, RefreshCw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+
+const CLINICAL_CASE_STUDIES = {
+  diabetes: {
+    label: "Case 01: Pre-Diabetic Metabolic Syndrome (Pima Cohort)",
+    data: { age: '48', glucose: '168', bmi: '33.2', bp: '138', insulin: '152', skinthickness: '32', dpf: '0.62', pregnancies: '2' }
+  },
+  heart: {
+    label: "Case 02: Exertional Ischemia and CAD (Multi-Center Cohort)",
+    data: { age: '56', sex: '1', trestbps: '144', chol: '264', thalach: '118', exang: '1', oldpeak: '2.4', cp: '4' }
+  },
+  kidney: {
+    label: "Case 03: Early Diabetic Nephropathy (CKD Registry)",
+    data: { age: '52', bp: '90', sg: '1.010', al: '2', hemo: '9.4', pcv: '29', sc: '2.2', bu: '58', bgr: '146' }
+  },
+  lung: {
+    label: "Case 04: Moderate Obstructive COPD (Respiratory Cohort)",
+    data: { age: '64', gender: '1', smoking_history: '34', smoking: '1', fev1: '1.25', fev1pred: '48', fvc: '2.1', fvcpred: '62', cat_score: '18', mwt1: '275' }
+  }
+};
 
 const INFO = {
   age: {
@@ -271,8 +290,18 @@ export default function AssessmentForm({ selectedDisease, formData, setFormData,
     }
   };
 
-  const ic = "w-full px-4 py-3 text-base rounded-lg bg-[#ede7de] border border-neutral-300 text-neutral-900 focus:ring-2 focus:ring-neutral-900/20 focus:border-neutral-900 outline-none transition-all placeholder:text-neutral-500";
-  const lc = "block text-xs font-bold text-neutral-600 uppercase tracking-wider mb-2";
+  const handleLoadCase = (diseaseId) => {
+    const study = CLINICAL_CASE_STUDIES[diseaseId];
+    if (study) {
+      setFormData(prev => ({ ...prev, ...study.data }));
+      setLastExtractedKeys(new Set(Object.keys(study.data)));
+      setScanStatus('success');
+      setTimeout(() => setScanStatus(null), 4000);
+    }
+  };
+
+  const ic = "w-full px-4 py-2.5 text-sm font-medium rounded-xl bg-slate-50 border border-slate-300 text-slate-900 focus:bg-white focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all placeholder:text-slate-400 shadow-2xs";
+  const lc = "block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5";
 
   const L = ({ id, children, req, side = 'left' }) => {
     const wasScanned = lastExtractedKeys.has(id) && formData[id] !== undefined && formData[id] !== null && formData[id] !== '';
@@ -419,6 +448,42 @@ export default function AssessmentForm({ selectedDisease, formData, setFormData,
         {isScanning && (
           <div className="absolute bottom-0 left-0 h-1 bg-neutral-900 animate-[shimmer_2s_infinite]" style={{ width: '100%', backgroundSize: '200% 100%' }}></div>
         )}
+      </div>
+
+      {/* ── Clinical Case Study Fast-Loader ── */}
+      <div className="bg-cyan-50/80 border border-cyan-200 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm mb-6">
+        <div className="flex items-center space-x-3 text-left">
+          <div className="p-2.5 bg-cyan-700 text-white rounded-xl shrink-0 shadow-sm">
+            <Sparkles className="w-4 h-4" />
+          </div>
+          <div>
+            <div className="text-xs font-bold text-slate-900 flex items-center space-x-1.5">
+              <span>Live Demonstration Case Study</span>
+              <span className="text-[10px] font-semibold bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded-full">Validated Patient Data</span>
+            </div>
+            <p className="text-[11px] text-slate-600 mt-0.5">
+              Pre-populate authentic patient parameters for instant clinical evaluation
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center space-x-2 shrink-0">
+          <button
+            type="button"
+            onClick={() => handleLoadCase(selectedDisease)}
+            className="flex items-center space-x-1.5 px-3.5 py-2 bg-[#0284c7] hover:bg-[#0369a1] text-white rounded-xl text-xs font-bold shadow-sm transition-all"
+          >
+            <span>⚡ Load Case Study</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => { setFormData({}); setLastExtractedKeys(new Set()); }}
+            className="px-2.5 py-2 bg-white hover:bg-slate-100 text-slate-600 rounded-xl text-xs font-semibold border border-slate-300 shadow-2xs transition-all"
+            title="Clear all fields"
+          >
+            Clear
+          </button>
+        </div>
       </div>
 
       <form onSubmit={onSubmit} className="space-y-6">

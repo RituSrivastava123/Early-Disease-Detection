@@ -1,5 +1,5 @@
 import React from 'react';
-import { AlertCircle, CheckCircle2, TrendingUp, TrendingDown, ArrowRight, ActivitySquare } from 'lucide-react';
+import { AlertCircle, CheckCircle2, TrendingUp, TrendingDown, ArrowRight, ActivitySquare, Printer, FileDown, Award, RefreshCw, Stethoscope } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const FEATURE_LABELS = {
@@ -67,19 +67,19 @@ export default function ResultSummary({ result, onReset }) {
     
     return (
       <div className="space-y-6">
-        <p className="text-neutral-700 leading-relaxed text-lg font-medium">
+        <p className="text-slate-700 leading-relaxed text-lg font-medium">
           Based on your clinical parameters, your risk profile is influenced by specific factors. Here is a detailed breakdown of what is currently driving your assessment:
         </p>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
           {riskIncreasers.length > 0 && (
-            <div className="space-y-3 bg-neutral-200/50 p-6 rounded-lg border border-neutral-300/30">
+            <div className="space-y-3 bg-slate-50 p-6 rounded-lg border border-slate-200">
               <h4 className="text-red-600 font-bold uppercase tracking-wider text-sm flex items-center">
                 <TrendingUp className="h-5 w-5 mr-2" /> Factors Increasing Risk
               </h4>
               <ul className="space-y-3">
                 {riskIncreasers.map((item, idx) => (
-                  <li key={idx} className="flex items-start text-sm text-neutral-700">
+                  <li key={idx} className="flex items-start text-sm text-slate-700">
                     <span className="w-1.5 h-1.5 rounded-full bg-red-600 mt-2 mr-3 shrink-0"></span>
                     <span>Your <strong>{featureLabel(item.feature)}</strong> ({valueLabel(item.feature, item.value)}) is a significant factor in your current risk assessment.</span>
                   </li>
@@ -89,13 +89,13 @@ export default function ResultSummary({ result, onReset }) {
           )}
           
           {riskDecreasers.length > 0 && (
-            <div className="space-y-3 bg-neutral-200/50 p-6 rounded-lg border border-neutral-300/30">
+            <div className="space-y-3 bg-slate-50 p-6 rounded-lg border border-slate-200">
               <h4 className="text-emerald-600 font-bold uppercase tracking-wider text-sm flex items-center">
                 <TrendingDown className="h-5 w-5 mr-2" /> Factors Lowering Risk
               </h4>
               <ul className="space-y-3">
                 {riskDecreasers.map((item, idx) => (
-                  <li key={idx} className="flex items-start text-sm text-neutral-700">
+                  <li key={idx} className="flex items-start text-sm text-slate-700">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 mt-2 mr-3 shrink-0"></span>
                     <span>Your <strong>{featureLabel(item.feature)}</strong> ({valueLabel(item.feature, item.value)}) is currently contributing to a lower relative risk in this assessment.</span>
                   </li>
@@ -109,21 +109,51 @@ export default function ResultSummary({ result, onReset }) {
     );
   };
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
-    <div className="space-y-8 animate-in fade-in zoom-in-95 duration-700">
-      <div className="text-center space-y-2">
-        <h2 className="text-4xl font-black text-neutral-900 tracking-tight">Assessment Results</h2>
-        <p className="text-lg font-medium text-neutral-600">Detailed breakdown of your clinical parameters</p>
+    <div className="space-y-8 animate-in fade-in zoom-in-95 duration-500 print:m-0 print:p-0">
+      {/* Top Clinical Header & Actions */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200 print:border-b-2 print:border-slate-800">
+        <div>
+          <div className="inline-flex items-center space-x-1.5 text-xs font-bold uppercase tracking-wider text-cyan-800 bg-cyan-50 px-2.5 py-0.5 rounded-full border border-cyan-200 mb-1.5">
+            <Stethoscope className="w-3.5 h-3.5 text-cyan-700" />
+            <span>Diagnostic Triage Report • SGPGIMS Protocol</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Clinical Assessment Report</h2>
+          <p className="text-slate-500 text-xs sm:text-sm mt-0.5">
+            Validated probability calculation and marginal clinical feature attribution.
+          </p>
+        </div>
+
+        <div className="flex items-center space-x-2.5 print:hidden">
+          <button
+            onClick={handlePrint}
+            className="flex items-center space-x-2 px-4 py-2.5 bg-[#0f172a] hover:bg-[#1e293b] text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-all border border-slate-700"
+          >
+            <Printer className="w-4 h-4 text-cyan-300" />
+            <span>Print Report (PDF)</span>
+          </button>
+          <button
+            onClick={onReset}
+            className="flex items-center space-x-1.5 px-3.5 py-2.5 bg-white hover:bg-slate-100 text-slate-700 rounded-xl text-xs sm:text-sm font-bold border border-slate-300 shadow-2xs transition-all"
+          >
+            <RefreshCw className="w-4 h-4 text-slate-500" />
+            <span>New Assessment</span>
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 items-start">
         {/* Risk Analysis Card */}
-        <div className="bg-neutral-100/60 p-8 rounded-md border border-neutral-300/50 relative overflow-hidden shadow-xl">
+        <div className="bg-white p-8 rounded-md border border-slate-200 relative overflow-hidden shadow-xl">
           <div className={`absolute top-0 left-0 w-full h-2 ${isHighRisk ? 'bg-red-500' : 'bg-emerald-500'}`}></div>
           
           <div className="space-y-8 mt-2">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-bold text-neutral-600 uppercase tracking-wider">Calculated Level</span>
+              <span className="text-sm font-bold text-slate-600 uppercase tracking-wider">Calculated Level</span>
               <span className={`px-4 py-1.5 rounded-md text-sm font-black uppercase tracking-wide ${isHighRisk ? 'bg-red-600/10 text-red-600 border border-red-600/20' : 'bg-emerald-600/10 text-emerald-600 border border-emerald-600/20'}`}>
                 {result?.status}
               </span>
@@ -150,20 +180,20 @@ export default function ResultSummary({ result, onReset }) {
             </div>
 
             <div className="text-center space-y-1">
-              <div className="text-7xl font-black text-neutral-900 tracking-tighter">
+              <div className="text-7xl font-black text-slate-900 tracking-tighter">
                 {result?.riskScore}<span className="text-3xl text-neutral-500 ml-1">%</span>
               </div>
-              <p className="text-sm font-bold text-neutral-600 uppercase tracking-widest">Probability Score</p>
+              <p className="text-sm font-bold text-slate-600 uppercase tracking-widest">Probability Score</p>
             </div>
             
-            <div className="bg-neutral-200/50 p-5 rounded-lg border border-neutral-300/50">
+            <div className="bg-slate-50 p-5 rounded-lg border border-slate-200">
                <div className="flex items-start space-x-4">
                   <div className={`p-3 rounded-md shrink-0 ${isHighRisk ? 'bg-red-600/10 text-red-600' : 'bg-emerald-600/10 text-emerald-600'}`}>
                     {isHighRisk ? <AlertCircle className="h-6 w-6" /> : <CheckCircle2 className="h-6 w-6" />}
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-neutral-900 mb-1">Clinical Summary</h3>
-                    <p className="text-sm font-medium text-neutral-600 leading-relaxed">
+                    <h3 className="text-lg font-bold text-slate-900 mb-1">Clinical Summary</h3>
+                    <p className="text-sm font-medium text-slate-600 leading-relaxed">
                       {getRiskSummary(result?.status, result?.riskScore)}
                     </p>
                   </div>
@@ -173,10 +203,10 @@ export default function ResultSummary({ result, onReset }) {
         </div>
 
         {/* Feature Breakdown Card */}
-        <div className="bg-neutral-100/60 p-8 rounded-md border border-neutral-300/50 shadow-xl flex flex-col h-full">
+        <div className="bg-white p-8 rounded-md border border-slate-200 shadow-xl flex flex-col h-full">
           <div className="mb-6">
-            <h3 className="text-xl font-bold text-neutral-900">Parameter Contributions</h3>
-            <p className="text-sm font-medium text-neutral-600 mt-1">Factors driving your risk score (SHAP Analysis)</p>
+            <h3 className="text-xl font-bold text-slate-900">Parameter Contributions</h3>
+            <p className="text-sm font-medium text-slate-600 mt-1">Factors driving your risk score (SHAP Analysis)</p>
           </div>
           
           <div className="flex-1 space-y-4">
@@ -189,7 +219,7 @@ export default function ResultSummary({ result, onReset }) {
                     const isRiskFactor = item.contribution > 0;
                     const relativeImpact = totalAbsShap > 0 ? (Math.abs(item.contribution) / totalAbsShap * 100) : 0;
                     return (
-                      <div key={idx} className="flex items-center justify-between p-4 rounded-md bg-neutral-200/50 border border-neutral-300/30">
+                      <div key={idx} className="flex items-center justify-between p-4 rounded-md bg-slate-50 border border-slate-200">
                         <div className="flex flex-col min-w-0 flex-1 mr-4">
                           <span className="text-sm font-bold text-neutral-800 capitalize truncate">
                             {featureLabel(item.feature)}
@@ -220,10 +250,10 @@ export default function ResultSummary({ result, onReset }) {
 
       {/* Full Width AI Insights Card */}
       {result?.breakdown && result.breakdown.length > 0 && (
-        <div className="bg-neutral-100/60 border border-neutral-300/50 p-8 md:p-10 rounded-md shadow-xl relative overflow-hidden">
+        <div className="bg-white border border-slate-200 p-8 md:p-10 rounded-md shadow-xl relative overflow-hidden">
           <div className="absolute top-0 left-0 w-1 h-full bg-neutral-500"></div>
           <div className="mb-6">
-            <h3 className="text-2xl font-bold text-neutral-900 tracking-tight flex items-center">
+            <h3 className="text-2xl font-bold text-slate-900 tracking-tight flex items-center">
               <ActivitySquare className="h-6 w-6 mr-3 text-neutral-500" /> Clinical Risk Factors Report
             </h3>
           </div>
@@ -234,7 +264,7 @@ export default function ResultSummary({ result, onReset }) {
       <div className="pt-4">
         <button
           onClick={onReset}
-          className="w-full flex items-center justify-center space-x-2 py-4 px-6 rounded-lg bg-neutral-100 hover:bg-neutral-700 border border-neutral-300 text-lg font-bold text-neutral-900 transition-all transform hover:-translate-y-1"
+          className="w-full flex items-center justify-center space-x-2 py-4 px-6 rounded-lg bg-neutral-100 hover:bg-neutral-700 border border-neutral-300 text-lg font-bold text-slate-900 transition-all transform hover:-translate-y-1"
         >
           <span>Start New Assessment</span>
           <ArrowRight className="h-5 w-5" />
