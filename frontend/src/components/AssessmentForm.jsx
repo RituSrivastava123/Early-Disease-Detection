@@ -5,20 +5,44 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const CLINICAL_CASE_STUDIES = {
   diabetes: {
-    label: "Case 01: Pre-Diabetic Metabolic Syndrome (Pima Cohort)",
-    data: { age: '48', glucose: '168', bmi: '33.2', bp: '138', insulin: '152', skinthickness: '32', dpf: '0.62', pregnancies: '2' }
+    silent: {
+      label: "Case A: Early Impaired Fasting Glucose (Risk ~56%)",
+      data: { age: '46', glucose: '128', bmi: '28.6', bp: '124', insulin: '88', skinthickness: '26', dpf: '0.44', pregnancies: '2' }
+    },
+    healthy: {
+      label: "Case B: Healthy Metabolic Baseline (Risk ~8%)",
+      data: { age: '32', glucose: '88', bmi: '22.1', bp: '114', insulin: '35', skinthickness: '18', dpf: '0.20', pregnancies: '1' }
+    }
   },
   heart: {
-    label: "Case 02: Exertional Ischemia and CAD (Multi-Center Cohort)",
-    data: { age: '56', sex: '1', trestbps: '144', chol: '264', thalach: '118', exang: '1', oldpeak: '2.4', cp: '4' }
+    silent: {
+      label: "Case A: Subclinical Angiographic Ischemia (Risk ~54%)",
+      data: { age: '54', sex: '1', trestbps: '136', chol: '232', thalach: '138', exang: '0', oldpeak: '1.2', cp: '3', ca: '1' }
+    },
+    healthy: {
+      label: "Case B: Normal Hemodynamic Profile (Risk ~4%)",
+      data: { age: '38', sex: '1', trestbps: '116', chol: '178', thalach: '168', exang: '0', oldpeak: '0.0', cp: '1', ca: '0' }
+    }
   },
   kidney: {
-    label: "Case 03: Early Diabetic Nephropathy (CKD Registry)",
-    data: { age: '52', bp: '90', sg: '1.010', al: '2', hemo: '9.4', pcv: '29', sc: '2.2', bu: '58', bgr: '146' }
+    silent: {
+      label: "Case A: Early Stage-2 Microalbuminuria (Risk ~68%)",
+      data: { age: '50', bp: '82', sg: '1.018', al: '1', hemo: '11.8', pcv: '36', sc: '1.35', bu: '38' }
+    },
+    healthy: {
+      label: "Case B: Optimal Glomerular Function (Risk ~3%)",
+      data: { age: '38', bp: '74', sg: '1.023', al: '0', hemo: '14.8', pcv: '46', sc: '0.85', bu: '22' }
+    }
   },
   lung: {
-    label: "Case 04: Moderate Obstructive COPD (Respiratory Cohort)",
-    data: { age: '64', gender: '1', smoking_history: '34', smoking: '1', fev1: '1.25', fev1pred: '48', fvc: '2.1', fvcpred: '62', cat_score: '18', mwt1: '275' }
+    silent: {
+      label: "Case A: Moderate Airway Obstruction GOLD-2 (Risk ~61%)",
+      data: { age: '62', gender: '1', smoking_history: '20', smoking: '1', fev1: '1.85', fev1pred: '64', fvc: '2.6', fvcpred: '74', cat_score: '13', mwt1: '330' }
+    },
+    healthy: {
+      label: "Case B: Normal Spirometric Volumes (Risk ~4%)",
+      data: { age: '38', gender: '1', smoking_history: '0', smoking: '0', fev1: '3.40', fev1pred: '98', fvc: '3.8', fvcpred: '96', cat_score: '4', mwt1: '480' }
+    }
   }
 };
 
@@ -290,11 +314,12 @@ export default function AssessmentForm({ selectedDisease, formData, setFormData,
     }
   };
 
-  const handleLoadCase = (diseaseId) => {
-    const study = CLINICAL_CASE_STUDIES[diseaseId];
-    if (study) {
-      setFormData(prev => ({ ...prev, ...study.data }));
-      setLastExtractedKeys(new Set(Object.keys(study.data)));
+  const handleLoadCase = (diseaseId, caseType = 'silent') => {
+    const diseaseCases = CLINICAL_CASE_STUDIES[diseaseId];
+    if (diseaseCases && diseaseCases[caseType]) {
+      const studyData = diseaseCases[caseType].data;
+      setFormData(prev => ({ ...prev, ...studyData }));
+      setLastExtractedKeys(new Set(Object.keys(studyData)));
       setScanStatus('success');
       setTimeout(() => setScanStatus(null), 4000);
     }
@@ -467,13 +492,22 @@ export default function AssessmentForm({ selectedDisease, formData, setFormData,
           </div>
         </div>
 
-        <div className="flex items-center space-x-2 shrink-0">
+        <div className="flex flex-wrap items-center gap-2 shrink-0">
           <button
             type="button"
-            onClick={() => handleLoadCase(selectedDisease)}
-            className="flex items-center space-x-1.5 px-3.5 py-2 bg-[#0284c7] hover:bg-[#0369a1] text-white rounded-xl text-xs font-bold shadow-sm transition-all"
+            onClick={() => handleLoadCase(selectedDisease, 'silent')}
+            className="flex items-center space-x-1.5 px-3 py-2 bg-[#0284c7] hover:bg-[#0369a1] text-white rounded-xl text-xs font-bold shadow-sm transition-all"
+            title="Load Early Silent Risk Case (54% - 68%)"
           >
-            <span>⚡ Load Case Study</span>
+            <span>⚡ Case A: Early Silent Risk</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => handleLoadCase(selectedDisease, 'healthy')}
+            className="flex items-center space-x-1.5 px-3 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold shadow-sm transition-all"
+            title="Load Normal Healthy Case (4% - 8%)"
+          >
+            <span>✓ Case B: Normal Baseline</span>
           </button>
           <button
             type="button"
